@@ -2,13 +2,16 @@ from flask import Flask, Response
 import json
 from flask import request
 from sqlalchemy import create_engine
+from flask.ext.sqlalchemy import SQLAlchemy
 
 DB_NAME = "sampledb"
 DB_USER = "postgresql"
 DB_PASS = "postgresql"
 APP_HOSTNAME = "172.30.2.228" 
 
-engine = create_engine("postgresql://{}:{}@{}/{}".format(DB_USER, DB_PASS, APP_HOSTNAME, DB_NAME))
+application = Flask(__name__)
+
+db = SQLAlchemy(application)
 
 class Url(db.Model):
     url_id = db.Column(db.Integer, primary_key=True)
@@ -16,8 +19,12 @@ class Url(db.Model):
     
     def __repr__(self):
         return '<Url %r>' % self.visited_route
+try:
+    db.create_all()
+except e:
+    print("DB Creation failed {}".format(e))
 
-application = Flask(__name__)
+engine = create_engine("postgresql://{}:{}@{}/{}".format(DB_USER, DB_PASS, APP_HOSTNAME, DB_NAME))
 
 @application.route('/<path:path>')
 def catch_all(path):
