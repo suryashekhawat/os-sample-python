@@ -6,8 +6,9 @@ from sqlalchemy import create_engine
 DB_NAME = "sampledb"
 DB_USER = "postgresql"
 DB_PASS = "postgresql"
+APP_HOSTNAME = "172.30.2.228" 
 
-engine = create_engine("postgresql://{}:{}@localhost/{}".format(DB_USER, DB_PASS, DB_NAME))
+engine = create_engine("postgresql://{}:{}@{}/{}".format(DB_USER, DB_PASS, APP_HOSTNAME, DB_NAME))
 
 class Url(db.Model):
     url_id = db.Column(db.Integer, primary_key=True)
