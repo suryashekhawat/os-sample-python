@@ -3,6 +3,12 @@ import json
 from flask import request
 from sqlalchemy import create_engine
 
+DB_NAME = "sampledb"
+DB_USER = "postgresql"
+DB_PASS = "postgresql"
+
+engine = create_engine("postgresql://{}:{}@localhost/{}".format(DB_USER, DB_PASS, DB_NAME))
+
 class Url(db.Model):
     url_id = db.Column(db.Integer, primary_key=True)
     visited_route = db.Column(db.String(64), unique=True)
