@@ -4,7 +4,7 @@ from flask import request
 from sqlalchemy import create_engine
 
 class Url(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+    url_id = db.Column(db.Integer, primary_key=True)
     visited_route = db.Column(db.String(64), unique=True)
     
     def __repr__(self):
