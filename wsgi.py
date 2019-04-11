@@ -3,6 +3,13 @@ import json
 from flask import request
 from sqlalchemy import create_engine
 
+class Url(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    visited_route = db.Column(db.String(64), unique=True)
+    
+    def __repr__(self):
+        return '<Url %r>' % self.visited_route
+
 application = Flask(__name__)
 
 @application.route('/<path:path>')
