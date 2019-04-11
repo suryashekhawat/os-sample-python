@@ -3,12 +3,6 @@ import json
 from flask import request
 application = Flask(__name__)
 
-@application.route('/', defaults={'path': ''})
-def root(path):
-    items = []
-    mimetype = 'application/json'
-    return Response(json.dumps(items, indent=2), mimetype=mimetype)
-
 @application.route('/<path:path>')
 def catch_all(path):
     count = 1
